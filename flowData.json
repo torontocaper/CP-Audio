@@ -1,0 +1,293 @@
+{
+  "sid": "FW59ba18decc7add221ede94d0f24e6974",
+  "accountSid": "AC17c0fbb0677cc76f55e49f7487dedeee",
+  "friendlyName": "Record Calls",
+  "definition": {
+    "states": [
+      {
+        "transitions": [
+          {
+            "event": "incomingMessage",
+            "next": "storeFile"
+          },
+          {
+            "event": "incomingCall",
+            "next": "playWelcome"
+          },
+          {
+            "event": "incomingRequest"
+          },
+          {
+            "event": "incomingParent"
+          }
+        ],
+        "type": "trigger",
+        "name": "Trigger",
+        "properties": {
+          "offset": {
+            "y": 10,
+            "x": -40
+          }
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "audioComplete",
+            "next": "recordCall"
+          }
+        ],
+        "type": "say-play",
+        "name": "playWelcome",
+        "properties": {
+          "play": "https://cpaudio-8766.twil.io/cp-audio-greeting-robo-9.mp3",
+          "language": "en-CA",
+          "loop": 1,
+          "offset": {
+            "y": 280,
+            "x": -210
+          }
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "recordingComplete",
+            "next": "getTinyUrl"
+          },
+          {
+            "event": "noAudio"
+          },
+          {
+            "event": "hangup",
+            "next": "getTinyUrl"
+          }
+        ],
+        "type": "record-voicemail",
+        "name": "recordCall",
+        "properties": {
+          "trim": "do-not-trim",
+          "transcribe": false,
+          "play_beep": "false",
+          "max_length": 14400,
+          "timeout": 0,
+          "offset": {
+            "y": 540,
+            "x": -410
+          },
+          "recording_status_callback_url": "https://hooks.zapier.com/hooks/catch/8909275/bs3v917/",
+          "finish_on_key": "9"
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "sent",
+            "next": "sendLongMp3"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "type": "send-message",
+        "name": "sendLongWav",
+        "properties": {
+          "body": "Here's your tape (in WAV form): {{widgets.recordCall.RecordingUrl}}",
+          "from": "{{trigger.call.To}}",
+          "service": "{{trigger.message.InstanceSid}}",
+          "to": "{{trigger.call.From}}",
+          "offset": {
+            "y": 920,
+            "x": 520
+          },
+          "channel": "{{trigger.message.ChannelSid}}"
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "sent",
+            "next": "sendWarning"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "type": "send-message",
+        "name": "sendLongMp3",
+        "properties": {
+          "body": "Here's an mp3: {{widgets.recordCall.RecordingUrl}}.mp3",
+          "from": "{{trigger.call.To}}",
+          "service": "{{trigger.message.InstanceSid}}",
+          "to": "{{trigger.call.From}}",
+          "offset": {
+            "y": 1190,
+            "x": 520
+          },
+          "channel": "{{trigger.message.ChannelSid}}"
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "sent"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "type": "send-message",
+        "name": "sendWarning",
+        "properties": {
+          "body": "Links expire in 14 days; please download your file(s) soon and store them locally or in OneDrive. Thanks for using CP Audio! Questions? Comments? amb@cp.org",
+          "from": "{{trigger.call.To}}",
+          "service": "{{trigger.message.InstanceSid}}",
+          "to": "{{trigger.call.From}}",
+          "offset": {
+            "y": 1460,
+            "x": 480
+          },
+          "channel": "{{trigger.message.ChannelSid}}"
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "success",
+            "next": "sendTinyUrl"
+          },
+          {
+            "event": "failed",
+            "next": "sendLongWav"
+          }
+        ],
+        "type": "make-http-request",
+        "name": "getTinyUrl",
+        "properties": {
+          "body": "{\n\"url\": \"{{widgets.recordCall.RecordingUrl}} \"\n}",
+          "url": "https://api.tinyurl.com/create?api_token=tOwrJCDH18v4a8GTenseL1ji8EzUO6LRO5Ebmeg9geQk8FuiivBYmddEJ9lY",
+          "method": "POST",
+          "content_type": "application/json;charset=utf-8",
+          "offset": {
+            "y": 270,
+            "x": 280
+          }
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "sent"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "type": "send-message",
+        "name": "sendTinyUrl",
+        "properties": {
+          "body": "Here's your tape (in .wav form): {{widgets.getTinyUrl.parsed.data.tiny_url}}. Get an mp3 by adding \".mp3\" to the full URL. Links expire in 14 days; download your files soon!",
+          "from": "{{flow.channel.address}}",
+          "service": "{{trigger.message.InstanceSid}}",
+          "to": "{{contact.channel.address}}",
+          "offset": {
+            "y": 1300,
+            "x": 0
+          },
+          "channel": "{{trigger.message.ChannelSid}}"
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "success",
+            "next": "sendSuccess"
+          },
+          {
+            "event": "fail",
+            "next": "sendFail"
+          }
+        ],
+        "type": "run-function",
+        "name": "storeFile",
+        "properties": {
+          "parameters": [],
+          "url": "https://cpaudio-8766.twil.io/storeFiles",
+          "environment_sid": "ZE59e56a4cfe92558f3860af34a002944a",
+          "offset": {
+            "y": 100,
+            "x": -1000
+          },
+          "function_sid": "ZHf2820adf283dc70268860f9a9b252f28",
+          "service_sid": "ZSc56db3a73d9dc5d91e9eacd308bd2b77"
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "sent"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "type": "send-message",
+        "name": "sendSuccess",
+        "properties": {
+          "body": "Your message was sent from {{widgets.storeFile.parsed.from}}  to {{widgets.storeFile.parsed.to}}",
+          "from": "{{flow.channel.address}}",
+          "service": "{{trigger.message.InstanceSid}}",
+          "to": "{{contact.channel.address}}",
+          "offset": {
+            "y": 1050,
+            "x": -1360
+          },
+          "channel": "{{trigger.message.ChannelSid}}"
+        }
+      },
+      {
+        "transitions": [
+          {
+            "event": "sent"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "type": "send-message",
+        "name": "sendFail",
+        "properties": {
+          "body": "Something went wrong.",
+          "from": "{{flow.channel.address}}",
+          "service": "{{trigger.message.InstanceSid}}",
+          "to": "{{contact.channel.address}}",
+          "offset": {
+            "y": 1070,
+            "x": -750
+          },
+          "channel": "{{trigger.message.ChannelSid}}"
+        }
+      }
+    ],
+    "initial_state": "Trigger",
+    "flags": {
+      "allow_concurrent_calls": true
+    },
+    "description": "A New Flow"
+  },
+  "status": "draft",
+  "revision": 423,
+  "commitMessage": "Rearranged Canvas",
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "dateCreated": "2022-02-16T16:03:46.000Z",
+  "dateUpdated": "2022-03-28T15:29:14.000Z",
+  "webhookUrl": "https://webhooks.twilio.com/v1/Accounts/AC17c0fbb0677cc76f55e49f7487dedeee/Flows/FW59ba18decc7add221ede94d0f24e6974",
+  "url": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974",
+  "links": {
+    "test_users": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/TestUsers",
+    "revisions": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Revisions",
+    "executions": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Executions"
+  }
+}
