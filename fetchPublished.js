@@ -6,6 +6,6 @@ const fs = require('fs');
 const client = require('twilio')(accountSid, authToken);
 
 client.studio.flows('FW59ba18decc7add221ede94d0f24e6974')
+             .revisions("LatestPublished")
              .fetch()
-             //.then(flow => console.log(flow.friendlyName))
-             .then(flow => fs.writeFileSync("CP Audio/flowData.json", (JSON.stringify(flow, null, 2))))
+             .then(flow => fs.writeFileSync("CP Audio/flowPublished.json", (JSON.stringify(flow, null, 2))))

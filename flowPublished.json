@@ -7,8 +7,7 @@
       {
         "transitions": [
           {
-            "event": "incomingMessage",
-            "next": "storeFile"
+            "event": "incomingMessage"
           },
           {
             "event": "incomingCall",
@@ -196,77 +195,6 @@
           },
           "channel": "{{trigger.message.ChannelSid}}"
         }
-      },
-      {
-        "transitions": [
-          {
-            "event": "success",
-            "next": "sendSuccess"
-          },
-          {
-            "event": "fail",
-            "next": "sendFail"
-          }
-        ],
-        "type": "run-function",
-        "name": "storeFile",
-        "properties": {
-          "parameters": [],
-          "url": "https://cpaudio-8766.twil.io/storeFiles",
-          "environment_sid": "ZE59e56a4cfe92558f3860af34a002944a",
-          "offset": {
-            "y": 100,
-            "x": -1000
-          },
-          "function_sid": "ZHf2820adf283dc70268860f9a9b252f28",
-          "service_sid": "ZSc56db3a73d9dc5d91e9eacd308bd2b77"
-        }
-      },
-      {
-        "transitions": [
-          {
-            "event": "sent"
-          },
-          {
-            "event": "failed"
-          }
-        ],
-        "type": "send-message",
-        "name": "sendSuccess",
-        "properties": {
-          "body": "Your message was sent from {{widgets.storeFile.parsed.from}}  to {{widgets.storeFile.parsed.to}}",
-          "from": "{{flow.channel.address}}",
-          "service": "{{trigger.message.InstanceSid}}",
-          "to": "{{contact.channel.address}}",
-          "offset": {
-            "y": 1050,
-            "x": -1360
-          },
-          "channel": "{{trigger.message.ChannelSid}}"
-        }
-      },
-      {
-        "transitions": [
-          {
-            "event": "sent"
-          },
-          {
-            "event": "failed"
-          }
-        ],
-        "type": "send-message",
-        "name": "sendFail",
-        "properties": {
-          "body": "Something went wrong.",
-          "from": "{{flow.channel.address}}",
-          "service": "{{trigger.message.InstanceSid}}",
-          "to": "{{contact.channel.address}}",
-          "offset": {
-            "y": 1070,
-            "x": -750
-          },
-          "channel": "{{trigger.message.ChannelSid}}"
-        }
       }
     ],
     "initial_state": "Trigger",
@@ -275,19 +203,12 @@
     },
     "description": "A New Flow"
   },
-  "status": "draft",
-  "revision": 423,
-  "commitMessage": "Rearranged Canvas",
+  "status": "published",
+  "revision": 362,
+  "commitMessage": "Published Flow",
   "valid": true,
   "errors": [],
-  "warnings": [],
   "dateCreated": "2022-02-16T16:03:46.000Z",
-  "dateUpdated": "2022-03-28T15:29:14.000Z",
-  "webhookUrl": "https://webhooks.twilio.com/v1/Accounts/AC17c0fbb0677cc76f55e49f7487dedeee/Flows/FW59ba18decc7add221ede94d0f24e6974",
-  "url": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974",
-  "links": {
-    "test_users": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/TestUsers",
-    "revisions": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Revisions",
-    "executions": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Executions"
-  }
+  "dateUpdated": "2022-03-16T17:02:48.000Z",
+  "url": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Revisions/362"
 }
