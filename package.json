@@ -1,24 +1,20 @@
 {
   "name": "cp-audio",
-  "version": "1.0.0",
-  "description": "an app for reporters to record phone interviews",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "twilio-run",
+    "deploy": "twilio-run deploy"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/torontocaper/CP-Audio.git"
+  "dependencies": {
+    "twilio": "^3.56",
+    "@twilio/runtime-handler": "1.2.2"
   },
-  "keywords": [
-    "audio",
-    "phone",
-    "journalism"
-  ],
-  "author": "Adam Burns",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/torontocaper/CP-Audio/issues"
+  "devDependencies": {
+    "twilio-run": "^3.4.1"
   },
-  "homepage": "https://github.com/torontocaper/CP-Audio#readme"
+  "engines": {
+    "node": "12"
+  }
 }
