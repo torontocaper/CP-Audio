@@ -39,12 +39,12 @@
         "type": "say-play",
         "name": "playWelcome",
         "properties": {
-          "play": "https://cpaudio-8766.twil.io/cp-audio-greeting-robo-9.mp3",
+          "play": "https://cp-audio-1354.twil.io/greeting.mp3",
           "language": "en-CA",
           "loop": 1,
           "offset": {
-            "y": 280,
-            "x": -210
+            "y": 290,
+            "x": 150
           }
         }
       },
@@ -71,8 +71,8 @@
           "max_length": 14400,
           "timeout": 0,
           "offset": {
-            "y": 540,
-            "x": -410
+            "y": 420,
+            "x": -470
           },
           "recording_status_callback_url": "https://hooks.zapier.com/hooks/catch/8909275/bs3v917/",
           "finish_on_key": "9"
@@ -168,8 +168,8 @@
           "method": "POST",
           "content_type": "application/json;charset=utf-8",
           "offset": {
-            "y": 270,
-            "x": 280
+            "y": 650,
+            "x": 130
           }
         }
       },
@@ -204,11 +204,11 @@
     "description": "A New Flow"
   },
   "status": "published",
-  "revision": 362,
+  "revision": 434,
   "commitMessage": "Published Flow",
   "valid": true,
   "errors": [],
   "dateCreated": "2022-02-16T16:03:46.000Z",
-  "dateUpdated": "2022-03-16T17:02:48.000Z",
-  "url": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Revisions/362"
+  "dateUpdated": "2022-03-30T19:31:35.000Z",
+  "url": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Revisions/434"
 }

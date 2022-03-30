@@ -203,12 +203,12 @@
     },
     "description": "A New Flow"
   },
-  "status": "draft",
-  "revision": 433,
-  "commitMessage": "Configured Widget playWelcome",
+  "status": "published",
+  "revision": 434,
+  "commitMessage": "Published Flow",
   "valid": true,
   "errors": [],
   "dateCreated": "2022-02-16T16:03:46.000Z",
-  "dateUpdated": "2022-03-30T15:32:12.000Z",
-  "url": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Revisions/433"
+  "dateUpdated": "2022-03-30T19:31:35.000Z",
+  "url": "https://studio.twilio.com/v2/Flows/FW59ba18decc7add221ede94d0f24e6974/Revisions/434"
 }
