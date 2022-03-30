@@ -5,7 +5,6 @@ const fs = require('fs');
 const { validateExpressRequest } = require("twilio/lib/webhooks/webhooks");
 const client = require('twilio')(accountSid, authToken);
 
-//this is asynchronous
 async function validateFlow() {
     let validBool = await client.studio.flowValidate.update(
     {
