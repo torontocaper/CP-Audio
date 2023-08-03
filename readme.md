@@ -16,7 +16,7 @@ I couldn't find an existing app or service that did the job, so I built my own.
 
 Using Twilio's low/no-code "Studio" platform, I made a simple call-recording app that reporters could access from anywhere.
 
-![Screenshot of a Twilio "flow" -- a flow chart showing what happens when a call comes in to the CP Audio app.](https://github.com/torontocaper/CP-Audio/assets/79330948/a68c87c4-9c10-4efa-a830-c27424c1a310)
+![Screenshot of a Twilio "flow" -- a flow chart showing what happens when a call comes in to the CP Audio app.](https://github.com/torontocaper/CP-Audio/assets/79330948/8bdc8c25-3b92-48fa-9e79-6cf1ec3b7cf3)
 
 It works by creating a conference call between the reporter, their source and a third number, which we rent from Twilio.
 
